@@ -1,0 +1,21 @@
+<html ng-app="app">
+    <head>
+        <script src="/jquery.min.js"></script>
+        <script src="/angular.min.js"></script>
+        <script src="/smart-table.js"></script>
+        <script src="/smart-table-ext.js"></script>
+        <script src="/code.js"></script>
+    </head>
+    <body>
+        <div ng-controller="MainController">
+            <table ng-table="usersTable" class="table">
+                <tbody>
+                    <tr ng-repeat="user in $data">
+                        <td data-title="'ID'" ng-bind="user.id"></td>
+                        <td data-title="'Name'" ng-bind="user.name"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
