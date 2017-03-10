@@ -1,7 +1,7 @@
 angular.module('app',['ngTable'])
-.controller('MainController',function($scope,$http,ngTableParams){
+.controller('MainController',function($scope,$http,NgTableParams){
 
-    $scope.usersTable = new ngTableParams({
+    $scope.usersTable = new NgTableParams({
         page: 1,
         count: 50,
         pagerSeriesCount: 1,
@@ -9,15 +9,26 @@ angular.module('app',['ngTable'])
         blockCaching: true,
         paginate: false,
         groupBy: null,
-        serverSideGrouping: false
+        serverSideGrouping: false,
+        test:'test'
     }, {
         getServerData: getUsers,
-        getData: getUsers
+        getData: getUsers,
+        getCachedData:getUsers
     });
 
-    function getUsers($defer,params){
-        $http({method:'GET',url:'/users.json'}).then(function(response){
-            $defer.resolve(response.data,params);
+    console.log($scope.usersTable);
+
+    // function getUsers($defer,params){
+    //     $http({method:'GET',url:'/users.json'}).then(function(response){
+    //         $defer.resolve(response.data,params);
+    //     });
+    // }
+
+    function getUsers(params){
+        return $http({method:'GET',url:'/users.json'}).then(function(response){
+            params.total(response.data.total);
+            return response.data.results;
         });
     }
 
